@@ -1,0 +1,98 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.NetworkInformation;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataStructures_CSharp.Lists {
+    internal class SinglyLinkedList<T> {
+        public Node<T> head { get; private set; }
+        public Node<T> tail { get; private set; }
+        public int count { get; private set; }
+
+        public SinglyLinkedList() { count = 0; }
+
+        public void Add(T value) {
+            if (head == null) {
+                head = new Node<T>(value);
+                tail = head;
+                count++;
+
+                return;
+            }
+            
+            tail.next = new Node<T>(value);
+            tail = tail.next;
+            
+            count++;
+        }
+
+        public T FindElement(int index) {
+            Node<T> current = head;
+
+            if (index < 0 || index >= count) throw new IndexOutOfRangeException();
+
+            for(int i=0;i<index;i++) {
+                current = current.next;
+            }
+
+            return current.value;
+        } 
+
+        public void Remove(int index) {
+            if (index < 0 || index >= count) throw new IndexOutOfRangeException();
+
+            Node<T> current = head;
+
+            if(index==0) {
+                head = head.next;
+            }
+            
+            else if(index!=count-1) {
+                for(int i=0;i<index-1;i++) {
+                    current = current.next;
+                }
+
+                Node<T> cur = current.next.next;
+
+                current.next = cur;
+            } else {
+                while(current.next.next!=null) {
+                    current = current.next;
+                }
+                tail = current;
+                current.next = null;
+            }
+
+            count--;
+        }
+
+        public void AddFirstElement(T value) {
+            if (head == null) {
+                head = new Node<T>(value);
+                tail = head;
+                count++;
+                return;
+            }
+
+            Node<T> newHead = new Node<T>(value);
+            newHead.next = head;
+
+            head = newHead;
+            count++;
+        }
+
+        public void ShowList() {
+            Node<T> current = head;
+
+            if(current == null) throw new Exception("List is empty");
+               
+            while(current != null) {
+                Console.Write($"{current.value} ");
+                current = current.next;
+            }
+            Console.WriteLine();
+        }
+    }
+}
