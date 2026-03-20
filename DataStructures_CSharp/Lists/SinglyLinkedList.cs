@@ -6,20 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 
 namespace DataStructures_CSharp.Lists {
-    internal class SinglyLinkedList<T> : IEnumerable<T> {
-        public Node<T> head { get; private set; }
-        public Node<T> tail { get; private set; }
-        public int count { get; private set; }
+    internal class SinglyLinkedList<T> : IEnumerable<T>, ICollection<T>, IList<T> {
+        public Node<T> Head { get; private set; }
+        public Node<T> Tail { get; private set; }
+        public int Count { get; private set; }
 
-        public SinglyLinkedList() { count = 0; }
+        public bool IsReadOnly => false;
+
+        public SinglyLinkedList() { Count = 0; }
 
         public IEnumerator<T> GetEnumerator() {
-            Node<T> current = head;
+            Node<T> current = Head;
             while(current !=null) {
-                yield return current.value;
-                current = current.next;
+                yield return current.Value;
+                current = current.Next;
             }
         }
 
@@ -34,139 +37,189 @@ namespace DataStructures_CSharp.Lists {
             }
 
             set {
-                if (index < 0 || index >= count) throw new IndexOutOfRangeException();
-                Node<T> current = head;
+                if (index < 0 || index >= Count) throw new IndexOutOfRangeException();
+                Node<T> current = Head;
                 for(int i=0;i<index;i++) {
-                    current = current.next;
+                    current = current.Next;
                 }
-                current.value = value;
+                current.Value = value;
             }
         }
 
         public T FindElement(int index) {
-            Node<T> current = head;
+            Node<T> current = Head;
 
-            if (index < 0 || index >= count) throw new IndexOutOfRangeException();
+            if (index < 0 || index >= Count) throw new IndexOutOfRangeException();
 
             for (int i = 0; i < index; i++) {
-                current = current.next;
+                current = current.Next;
             }
 
-            return current.value;
+            return current.Value;
         }
 
         public void Clear() {
-            head = null;
-            tail = null;
-            count = 0;
+            Head = null;
+            Tail = null;
+            Count = 0;
         }
 
         public void RemoveFirst() {
-            Remove(0);
+            RemoveAt(0);
         }
 
         public void RemoveLast() {
-            Remove(count - 1);
+            RemoveAt(Count - 1);
         }
 
         public void Insert(int index, T value) {
-            if(index<0 || index>count) throw new IndexOutOfRangeException();
+            if(index<0 || index>Count) throw new IndexOutOfRangeException();
 
-            Node<T> current = head;
+            Node<T> current = Head;
 
             if(index==0) {
                 Node<T> node = new Node<T>(value);
 
-                node.next = current;
-                head = node;
-                if (count == 0) tail = head;
+                node.Next = current;
+                Head = node;
+                if (Count == 0) Tail = Head;
             }
             else {
                 
                 for(int i=0;i<index-1;i++) {
-                    current = current.next;
+                    current = current.Next;
                 }
 
                 Node<T> node = new Node<T>(value);
-                node.next = current.next;
-                current.next = node;
+                node.Next = current.Next;
+                current.Next = node;
 
-                if(node.next == null) {
-                    tail = node;
+                if(node.Next == null) {
+                    Tail = node;
                 }
             }
 
-            count++;
+            Count++;
         }
 
         public void Add(T value) {
-            if (head == null) {
-                head = new Node<T>(value);
-                tail = head;
-                count++;
+            if (Head == null) {
+                Head = new Node<T>(value);
+                Tail = Head;
+                Count++;
 
                 return;
             }
             
-            tail.next = new Node<T>(value);
-            tail = tail.next;
+            Tail.Next = new Node<T>(value);
+            Tail = Tail.Next;
             
-            count++;
+            Count++;
         }
 
-        public void Remove(int index) {
-            if (index < 0 || index >= count)
+        public void RemoveAt(int index) {
+            if (index < 0 || index >= Count)
                 throw new IndexOutOfRangeException();
 
-            Node<T> current = head;
+            Node<T> current = Head;
 
             if (index == 0) {
-                head = head.next;
-                if (count == 1)
-                    tail = null;
+                Head = Head.Next;
+                if (Count == 1)
+                    Tail = null;
             }
-            else if (index == count - 1) {
-                while (current.next != tail) {
-                    current = current.next;
+            else if (index == Count - 1) {
+                while (current.Next != Tail) {
+                    current = current.Next;
                 }
-                tail = current;
-                current.next = null;
+                Tail = current;
+                current.Next = null;
             }
             else {
                 for (int i = 0; i < index - 1; i++) {
-                    current = current.next;
+                    current = current.Next;
                 }
-                current.next = current.next.next;
+                current.Next = current.Next.Next;
             }
 
-            count--;
+            Count--;
         }
 
         public void AddFirstElement(T value) {
-            if (head == null) {
-                head = new Node<T>(value);
-                tail = head;
-                count++;
+            if (Head == null) {
+                Head = new Node<T>(value);
+                Tail = Head;
+                Count++;
                 return;
             }
 
             Node<T> newHead = new Node<T>(value);
-            newHead.next = head;
+            newHead.Next = Head;
 
-            head = newHead;
-            count++;
+            Head = newHead;
+            Count++;
         }
 
         public void ShowList() {
-            Node<T> current = head;
+            Node<T> current = Head;
 
             if(current == null) throw new Exception("List is empty");
                
             while(current != null) {
-                Console.Write($"{current.value} ");
-                current = current.next;
+                Console.Write($"{current.Value} ");
+                current = current.Next;
             }
             Console.WriteLine();
+        }
+
+        public void CopyTo(T[] array, int arrayIndex) {
+            if (array == null) throw new ArgumentNullException(nameof(array));
+
+            if (arrayIndex < 0) {
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex), "Index outside of array");
+            }
+
+            if (array.Length - arrayIndex < Count) {
+                throw new ArgumentException("Deficiency space");
+            }
+
+            foreach (T value in this) {
+                array[arrayIndex] = value;
+                arrayIndex++;
+            }
+        }
+        
+        public int IndexOf(T item) {
+            int index = 0;
+            foreach(T value in this) {
+                if(item.Equals(value)) {
+                    return index;
+                }
+                index++;
+            }
+
+            return -1;
+        }
+
+        public bool Contains(T item) {
+            foreach(T value in this) {
+                if (item.Equals(value)) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool Remove(T item) {
+            for (int i = 0; i < this.Count; i++) {
+                if (item.Equals(this[i])) {
+                    RemoveAt(i);
+                    return true;
+                }
+                
+            }
+            return false;
         }
     }
 }

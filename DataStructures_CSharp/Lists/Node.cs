@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataStructures_CSharp.Lists {
     internal class Node<T> {
-        public T value { get; set; }
-        public Node<T> next { get; set; }
+        public T Value { get; set; }
+        public Node<T> Next { get; set; }
 
         public Node(T value) {
-            this.value = value;
+            Value = value;
         }
     }
 }
