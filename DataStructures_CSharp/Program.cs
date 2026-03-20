@@ -1,5 +1,6 @@
 ﻿using DataStructures_CSharp.Lists;
 using System;
+using System.Linq;
 
 namespace DataStructures_CSharp {
     class Program {
@@ -7,14 +8,13 @@ namespace DataStructures_CSharp {
             SinglyLinkedList<int> singlyLinkedList = new SinglyLinkedList<int>();
 
             singlyLinkedList.Add(2);
-            singlyLinkedList.Add(1);
-            singlyLinkedList.Add(42);
-
-            singlyLinkedList.Remove(2);
+            singlyLinkedList.Add(23);
+            singlyLinkedList.Insert(1, 22);
 
             singlyLinkedList.ShowList();
 
-            Console.WriteLine(singlyLinkedList.tail.value);
+            Console.WriteLine(singlyLinkedList.count);
+            
         }
     }
 }
