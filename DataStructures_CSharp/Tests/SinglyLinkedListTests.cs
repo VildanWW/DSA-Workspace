@@ -13,7 +13,7 @@ namespace DataStructures_CSharp.Tests {
 
             SinglyLinkedList<int> ints1 = new SinglyLinkedList<int>();
             SinglyLinkedList<int> ints2 = new SinglyLinkedList<int>();
-
+            
             Console.WriteLine("=== Singly Linked List Functional Tests ===");
 
             int size = 1_000;
