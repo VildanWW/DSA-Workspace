@@ -13,15 +13,13 @@ namespace DataStructures_CSharp {
 
             binarySearchTree.AddNode(24);
             binarySearchTree.AddNode(12);
-            binarySearchTree.AddNode(-22);
+            binarySearchTree.AddNode(-232);
             binarySearchTree.AddNode(100);
+            binarySearchTree.AddNode(14);
+            binarySearchTree.AddNode(11111);
             binarySearchTree.AddNode(13);
-            binarySearchTree.AddNode(1);
 
-
-            Console.WriteLine(binarySearchTree.GetMin());
-
-           
+            Console.WriteLine(binarySearchTree.CountLeaf());
         }
     }
 }

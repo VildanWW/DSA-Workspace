@@ -57,6 +57,82 @@ namespace DataStructures_CSharp.Trees {
             return GetMin(head.Left);
         }
 
+        private T GetMax(Node<T> head) {
+            if(head.Right==null) return head.Value;
+
+            return GetMax(head.Right);
+        }
+
+        private Node<T> Find(Node<T> head, T value) {
+            if (head == null) return null;
+
+            int number = value.CompareTo(head.Value);
+            if (number == 0) return head;
+
+            if (number < 0) {
+                return Find(head.Left, value);
+            } else {
+                return Find(head.Right, value);
+            }
+        }
+
+        private int HeightTree(Node<T> head) {
+            if (head == null) return 0;
+
+            return Math.Max(HeightTree(head.Left), HeightTree(head.Right)) + 1;
+        }
+
+        private int CountLeaf(Node<T> head) {
+            if (head == null) return 0;
+
+            if (head.Left == null && head.Right == null) return 1;
+
+            return CountLeaf(head.Left) + CountLeaf(head.Right);
+        }
+
+        private int GetLevelNode(Node<T> head, T value, int ur) {
+            if (head == null) return -1;
+
+            int number = value.CompareTo(head.Value);
+
+            if (number == 0) return ur;
+
+            if(number<0) {
+                return GetLevelNode(head.Left, value, ur + 1);
+            } else {
+                return GetLevelNode(head.Right, value, ur + 1);
+            }
+        }
+
+        public int GetLevelNode(T value) {
+            return GetLevelNode(Head, value, 0);
+        }
+
+        public int CountLeaf() {
+            return CountLeaf(Head);
+        }
+
+        public int HeightTree() {
+            return HeightTree(Head);
+        }
+
+        public bool IsEmpty() {
+            return Head == null;
+        }
+
+        public Node<T> Find(T value) {
+            return Find(Head, value);
+        }
+
+        public void Clear() {
+            Head = null;
+            Count = 0;
+        }
+
+        public T GetMax() {
+            return GetMax(Head);
+        }
+
         public T GetMin() {
             return GetMin(Head);
         }
