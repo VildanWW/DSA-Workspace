@@ -11,15 +11,14 @@ namespace DataStructures_CSharp {
         static void Main(string[] args) {
             BinarySearchTree<int> binarySearchTree = new BinarySearchTree<int>();
 
-            binarySearchTree.AddNode(24);
-            binarySearchTree.AddNode(12);
-            binarySearchTree.AddNode(-232);
+            binarySearchTree.AddNode(20);
             binarySearchTree.AddNode(100);
-            binarySearchTree.AddNode(14);
-            binarySearchTree.AddNode(11111);
-            binarySearchTree.AddNode(13);
+            binarySearchTree.AddNode(10);
+            binarySearchTree.AddNode(5);
 
-            Console.WriteLine(binarySearchTree.CountLeaf());
+            Console.WriteLine(binarySearchTree.IsBalanced());
+
+            binarySearchTree.ShowTree();
         }
     }
 }
