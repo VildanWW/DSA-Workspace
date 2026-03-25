@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataStructures_CSharp.Trees {
-    internal class BinarySearchTree<T> where T : IComparable<T> {
+    internal class BinarySearchTree<T> : IEnumerable<T> where T : IComparable<T> {
         public Node<T>? Head { get; private set; }
         public int Count { get; set; }
 
@@ -128,7 +130,39 @@ namespace DataStructures_CSharp.Trees {
 
             return node;
         }
-        
+
+        private IEnumerable<T> InOrder(Node<T> node) {
+            if (node == null) yield break;
+
+            foreach (T value in InOrder(node.Left)) yield return value;
+
+            yield return node.Value;
+
+            foreach (T val in InOrder(node.Right)) yield return val;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() {
+            return this.GetEnumerator();
+        }
+
+        private IEnumerable<T> PostOrder(Node<T> node) {
+            if (node == null) yield break;
+
+            foreach (T value in PostOrder(node.Left)) yield return value;
+
+            foreach (T value in PostOrder(node.Right)) yield return value;
+
+            yield return node.Value;
+        }
+
+        public IEnumerable<T> PostOrder() {
+            return PostOrder(Head);
+        }
+
+        public IEnumerator<T> GetEnumerator() {
+            return InOrder(Head).GetEnumerator();
+        }
+
         public bool IsBalanced(Node<T> node) {
             if (node == null) return true;
 

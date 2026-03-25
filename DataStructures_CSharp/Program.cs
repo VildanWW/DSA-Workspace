@@ -16,7 +16,9 @@ namespace DataStructures_CSharp {
             binarySearchTree.AddNode(10);
             binarySearchTree.AddNode(5);
 
-            Console.WriteLine(binarySearchTree.IsBalanced());
+            foreach (var v in binarySearchTree.PostOrder()) {
+                Console.WriteLine(v);
+            }
 
             binarySearchTree.ShowTree();
         }
