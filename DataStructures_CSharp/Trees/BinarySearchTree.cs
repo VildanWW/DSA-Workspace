@@ -155,6 +155,36 @@ namespace DataStructures_CSharp.Trees {
             yield return node.Value;
         }
 
+        private IEnumerable<T> PreOrder(Node<T> node) {
+            if (node == null) yield break;
+
+            yield return node.Value;
+
+            foreach (T value in PreOrder(node.Left)) yield return value;
+
+            foreach (T value in PreOrder(node.Right)) yield return value;
+        }
+
+        public IEnumerable<T> LevelOrder() {
+            if (Head == null) yield break;
+
+            var queue = new Queue<Node<T>>();
+            queue.Enqueue(Head);
+
+            while (queue.Count > 0) {
+                var current = queue.Dequeue();
+
+                yield return current.Value;
+
+                if (current.Left != null) queue.Enqueue(current.Left);
+                if (current.Right != null) queue.Enqueue(current.Right);
+            }
+        }
+
+        public IEnumerable<T> PreOrder() {
+            return PreOrder(Head);
+        }
+
         public IEnumerable<T> PostOrder() {
             return PostOrder(Head);
         }
@@ -177,7 +207,12 @@ namespace DataStructures_CSharp.Trees {
         }
 
         public void RemoveNode(T value) {
-            Head = RemoveNode(Head, value);
+            if (Find(value) != null) {
+                Head = RemoveNode(Head, value);
+                Count--;
+            } else {
+                throw new KeyNotFoundException("Node not found");
+            }
         }
 
         public int GetLevelNode(T value) {
