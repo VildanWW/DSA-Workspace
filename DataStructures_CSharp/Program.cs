@@ -11,14 +11,18 @@ namespace DataStructures_CSharp {
         static void Main(string[] args) {
             BinarySearchTree<int> binarySearchTree = new BinarySearchTree<int>();
 
-            binarySearchTree.AddNode(20);
-            binarySearchTree.AddNode(100);
-            binarySearchTree.AddNode(10);
-            binarySearchTree.AddNode(5);
-            binarySearchTree.AddNode(1000);
+            binarySearchTree.Add(20);
+            binarySearchTree.Add(100);
+            binarySearchTree.Add(10);
+            binarySearchTree.Add(5);
+            binarySearchTree.Add(1000);
 
-            foreach (var v in binarySearchTree.LevelOrder()) {
-                Console.WriteLine(v);
+            int[] ints = new int[6];
+
+            binarySearchTree.CopyTo(ints, 1);
+
+            foreach(int i in ints) {
+                Console.WriteLine(i);
             }
 
             binarySearchTree.ShowTree();

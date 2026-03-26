@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DataStructures_CSharp.Trees {
-    internal class BinarySearchTree<T> : IEnumerable<T> where T : IComparable<T> {
+    internal class BinarySearchTree<T> : ICollection<T>, IEnumerable<T> where T : IComparable<T> {
         public Node<T>? Head { get; private set; }
         public int Count { get; set; }
 
+        public bool IsReadOnly => false;
         public BinarySearchTree() {
             Count = 0;
         }
@@ -206,13 +207,14 @@ namespace DataStructures_CSharp.Trees {
             return IsBalanced(Head);
         }
 
-        public void RemoveNode(T value) {
+        public bool Remove(T value) {
             if (Find(value) != null) {
                 Head = RemoveNode(Head, value);
                 Count--;
-            } else {
-                throw new KeyNotFoundException("Node not found");
+                return true;
             }
+
+            return false;
         }
 
         public int GetLevelNode(T value) {
@@ -248,8 +250,8 @@ namespace DataStructures_CSharp.Trees {
             return GetMin(Head);
         }
 
-        public void AddNode(T value) {
-            Head = AddNode(Head, value);
+        public void Add(T item) {
+            Head = AddNode(Head, item);
 
             Count++;
         }
@@ -260,6 +262,18 @@ namespace DataStructures_CSharp.Trees {
 
         public bool Contains(T value) {
             return Contains(Head, value);
+        }
+
+        public void CopyTo(T[] array, int arrayIndex) {
+            if (array == null) throw new ArgumentNullException(nameof(array));
+
+            if (arrayIndex < 0) throw new ArgumentOutOfRangeException(nameof(arrayIndex), "Index outside of array");
+
+            if (array.Length - arrayIndex < Count) throw new ArgumentOutOfRangeException("little space");
+
+            foreach(T value in this) {
+                array[arrayIndex++] = value;
+            }
         }
     }
 }
