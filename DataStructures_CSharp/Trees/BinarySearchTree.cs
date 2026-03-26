@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DataStructures_CSharp.Trees {
-    internal class BinarySearchTree<T> : ICollection<T>, IEnumerable<T> where T : IComparable<T> {
+    public class BinarySearchTree<T> : ICollection<T>, IEnumerable<T> where T : IComparable<T> {
         public Node<T>? Head { get; private set; }
         public int Count { get; set; }
 
@@ -251,8 +251,8 @@ namespace DataStructures_CSharp.Trees {
         }
 
         public void Add(T item) {
+            if (Contains(item)) return;
             Head = AddNode(Head, item);
-
             Count++;
         }
 

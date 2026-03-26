@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DataStructures_CSharp.Trees {
-    internal class Node<T> {
+    public class Node<T> {
         public T Value { get; set; }
         public Node<T>? Left { get; set; }
         public Node<T>? Right { get; set; }
