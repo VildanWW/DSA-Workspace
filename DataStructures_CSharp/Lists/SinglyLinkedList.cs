@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Transactions;
 
 namespace DataStructures_CSharp.Lists {
-    internal class SinglyLinkedList<T> : IEnumerable<T>, ICollection<T>, IList<T> {
+    public class SinglyLinkedList<T> : IEnumerable<T>, ICollection<T>, IList<T> {
         public Node<T> Head { get; private set; }
         public Node<T> Tail { get; private set; }
         public int Count { get; private set; }
