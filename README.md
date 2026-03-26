@@ -4,7 +4,8 @@
 
 [20.03.2026] Проведены тесты корректности работы односвязного списка(Тесты находятся в папке Tests этого проекта)
 
-<img width="1125" height="252" alt="image" src="https://github.com/user-attachments/assets/811f1a35-6983-4237-8acd-5a3d534011ce" />
+<img width="1286" height="492" alt="image" src="https://github.com/user-attachments/assets/7c2b8f3e-1bb3-4b1a-ae14-a7a913217c5f" />
+
 
 # Singly Linked List (Односвязный список)
 
