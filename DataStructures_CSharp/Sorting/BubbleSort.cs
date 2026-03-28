@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DataStructures_CSharp.Sorting {
-    internal static class BubbleSort {
+    public static class BubbleSort {
         public static void Sort<T>(IList<T> container, Func<T, T, bool> func) {
             int sizeContainer = container.Count;
 
