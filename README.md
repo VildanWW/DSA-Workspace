@@ -60,4 +60,5 @@
 
 [27.03.2026] Проведены тесты корректности работы бинарного дерева поиска (Тесты находятся в папке Tests этого проекта)
 
-<img width="1348" height="600" alt="image" src="https://github.com/user-attachments/assets/e14a42ed-6880-4ceb-9649-d169fd35e190" />
+<img width="1345" height="398" alt="image" src="https://github.com/user-attachments/assets/a5d4a9f6-2703-4c50-9933-f73ed45c565d" />
+
