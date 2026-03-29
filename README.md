@@ -96,7 +96,7 @@
 
 <img width="602" height="126" alt="image" src="https://github.com/user-attachments/assets/fae9d615-a655-4cc8-a2c8-7137b2e138bf" />
 
-# Сортировка вставками (Selection Sort, O(n²))
+# Сортировка вставками (Insertion Sort, O(n²))
 
 ### Описание работы сортировки вставками:
 
