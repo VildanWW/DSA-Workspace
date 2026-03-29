@@ -10,8 +10,8 @@ using System.Transactions;
 
 namespace DataStructures_CSharp.Lists {
     public class SinglyLinkedList<T> : IEnumerable<T>, ICollection<T>, IList<T> {
-        public Node<T> Head { get; private set; }
-        public Node<T> Tail { get; private set; }
+        public NodeSLL<T> Head { get; private set; }
+        public NodeSLL<T> Tail { get; private set; }
         public int Count { get; private set; }
 
         public bool IsReadOnly => false;
@@ -19,7 +19,7 @@ namespace DataStructures_CSharp.Lists {
         public SinglyLinkedList() { Count = 0; }
 
         public IEnumerator<T> GetEnumerator() {
-            Node<T> current = Head;
+            NodeSLL<T> current = Head;
             while(current !=null) {
                 yield return current.Value;
                 current = current.Next;
@@ -27,7 +27,7 @@ namespace DataStructures_CSharp.Lists {
         }
 
         IEnumerator IEnumerable.GetEnumerator() {
-            return this.GetEnumerator();
+            return GetEnumerator();
         }
 
         public T this[int index] {
@@ -38,7 +38,7 @@ namespace DataStructures_CSharp.Lists {
 
             set {
                 if (index < 0 || index >= Count) throw new IndexOutOfRangeException();
-                Node<T> current = Head;
+                NodeSLL<T> current = Head;
                 for(int i=0;i<index;i++) {
                     current = current.Next;
                 }
@@ -47,7 +47,7 @@ namespace DataStructures_CSharp.Lists {
         }
 
         public T FindElement(int index) {
-            Node<T> current = Head;
+            NodeSLL<T> current = Head;
 
             if (index < 0 || index >= Count) throw new IndexOutOfRangeException();
 
@@ -75,10 +75,10 @@ namespace DataStructures_CSharp.Lists {
         public void Insert(int index, T value) {
             if(index<0 || index>Count) throw new IndexOutOfRangeException();
 
-            Node<T> current = Head;
+            NodeSLL<T> current = Head;
 
             if(index==0) {
-                Node<T> node = new Node<T>(value);
+                NodeSLL<T> node = new NodeSLL<T>(value);
 
                 node.Next = current;
                 Head = node;
@@ -90,7 +90,7 @@ namespace DataStructures_CSharp.Lists {
                     current = current.Next;
                 }
 
-                Node<T> node = new Node<T>(value);
+                NodeSLL<T> node = new NodeSLL<T>(value);
                 node.Next = current.Next;
                 current.Next = node;
 
@@ -104,14 +104,14 @@ namespace DataStructures_CSharp.Lists {
 
         public void Add(T value) {
             if (Head == null) {
-                Head = new Node<T>(value);
+                Head = new NodeSLL<T>(value);
                 Tail = Head;
                 Count++;
 
                 return;
             }
             
-            Tail.Next = new Node<T>(value);
+            Tail.Next = new NodeSLL<T>(value);
             Tail = Tail.Next;
             
             Count++;
@@ -121,7 +121,7 @@ namespace DataStructures_CSharp.Lists {
             if (index < 0 || index >= Count)
                 throw new IndexOutOfRangeException();
 
-            Node<T> current = Head;
+            NodeSLL<T> current = Head;
 
             if (index == 0) {
                 Head = Head.Next;
@@ -147,13 +147,13 @@ namespace DataStructures_CSharp.Lists {
 
         public void AddFirstElement(T value) {
             if (Head == null) {
-                Head = new Node<T>(value);
+                Head = new NodeSLL<T>(value);
                 Tail = Head;
                 Count++;
                 return;
             }
 
-            Node<T> newHead = new Node<T>(value);
+            NodeSLL<T> newHead = new NodeSLL<T>(value);
             newHead.Next = Head;
 
             Head = newHead;
@@ -161,7 +161,7 @@ namespace DataStructures_CSharp.Lists {
         }
 
         public void ShowList() {
-            Node<T> current = Head;
+            NodeSLL<T> current = Head;
 
             if(current == null) throw new Exception("List is empty");
                

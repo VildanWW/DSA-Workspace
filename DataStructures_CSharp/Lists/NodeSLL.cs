@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataStructures_CSharp.Trees {
-    public class Node<T> {
+namespace DataStructures_CSharp.Lists {
+    public class NodeSLL<T> {
         public T Value { get; set; }
-        public Node<T>? Left { get; set; }
-        public Node<T>? Right { get; set; }
+        public NodeSLL<T>? Next { get; set; }
 
-        public Node(T value) {
+        public NodeSLL(T value) {
             Value = value;
         }
     }

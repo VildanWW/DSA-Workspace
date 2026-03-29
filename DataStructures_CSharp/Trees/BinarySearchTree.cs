@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataStructures_CSharp.Trees {
     public class BinarySearchTree<T> : ICollection<T>, IEnumerable<T> where T : IComparable<T> {
-        public Node<T>? Head { get; private set; }
+        public NodeBST<T>? Head { get; private set; }
         public int Count { get; set; }
 
         public bool IsReadOnly => false;
@@ -16,9 +16,9 @@ namespace DataStructures_CSharp.Trees {
             Count = 0;
         }
 
-        private Node<T> AddNode(Node<T> node, T value) {
+        private NodeBST<T> AddNode(NodeBST<T> node, T value) {
             if (node == null) {
-                return new Node<T>(value);
+                return new NodeBST<T>(value);
             }
 
             if (value.CompareTo(node.Value) < 0) {
@@ -30,7 +30,7 @@ namespace DataStructures_CSharp.Trees {
             return node;
         }
 
-        private void ShowTree(Node<T> node, int ur) {
+        private void ShowTree(NodeBST<T> node, int ur) {
             if (node == null) return;
 
             ShowTree(node.Left, ur + 1);
@@ -41,7 +41,7 @@ namespace DataStructures_CSharp.Trees {
             ShowTree(node.Right, ur + 1);
         }
 
-        private bool Contains(Node<T> node, T value) {
+        private bool Contains(NodeBST<T> node, T value) {
             if (node == null) return false;
             int number = value.CompareTo(node.Value);
 
@@ -54,19 +54,19 @@ namespace DataStructures_CSharp.Trees {
             }
         }
 
-        private T GetMin(Node<T> node) {
+        private T GetMin(NodeBST<T> node) {
             if (node.Left == null) return node.Value;
 
             return GetMin(node.Left);
         }
 
-        private T GetMax(Node<T> node) {
+        private T GetMax(NodeBST<T> node) {
             if(node.Right==null) return node.Value;
 
             return GetMax(node.Right);
         }
 
-        private Node<T> Find(Node<T> node, T value) {
+        private NodeBST<T> Find(NodeBST<T> node, T value) {
             if (node == null) return null;
 
             int number = value.CompareTo(node.Value);
@@ -79,13 +79,13 @@ namespace DataStructures_CSharp.Trees {
             }
         }
 
-        private int HeightTree(Node<T> node) {
+        private int HeightTree(NodeBST<T> node) {
             if (node == null) return 0;
 
             return Math.Max(HeightTree(node.Left), HeightTree(node.Right)) + 1;
         }
 
-        private int CountLeaf(Node<T> node) {
+        private int CountLeaf(NodeBST<T> node) {
             if (node == null) return 0;
 
             if (node.Left == null && node.Right == null) return 1;
@@ -93,7 +93,7 @@ namespace DataStructures_CSharp.Trees {
             return CountLeaf(node.Left) + CountLeaf(node.Right);
         }
 
-        private int GetLevelNode(Node<T> node, T value, int ur) {
+        private int GetLevelNode(NodeBST<T> node, T value, int ur) {
             if (node == null) return -1;
 
             int number = value.CompareTo(node.Value);
@@ -107,7 +107,7 @@ namespace DataStructures_CSharp.Trees {
             }
         }
 
-        private Node<T> RemoveNode(Node<T> node, T value) {
+        private NodeBST<T> RemoveNode(NodeBST<T> node, T value) {
             if (node == null) return null;
 
             int number = value.CompareTo(node.Value);
@@ -132,7 +132,7 @@ namespace DataStructures_CSharp.Trees {
             return node;
         }
 
-        private IEnumerable<T> InOrder(Node<T> node) {
+        private IEnumerable<T> InOrder(NodeBST<T> node) {
             if (node == null) yield break;
 
             foreach (T value in InOrder(node.Left)) yield return value;
@@ -146,7 +146,7 @@ namespace DataStructures_CSharp.Trees {
             return this.GetEnumerator();
         }
 
-        private IEnumerable<T> PostOrder(Node<T> node) {
+        private IEnumerable<T> PostOrder(NodeBST<T> node) {
             if (node == null) yield break;
 
             foreach (T value in PostOrder(node.Left)) yield return value;
@@ -156,7 +156,7 @@ namespace DataStructures_CSharp.Trees {
             yield return node.Value;
         }
 
-        private IEnumerable<T> PreOrder(Node<T> node) {
+        private IEnumerable<T> PreOrder(NodeBST<T> node) {
             if (node == null) yield break;
 
             yield return node.Value;
@@ -169,7 +169,7 @@ namespace DataStructures_CSharp.Trees {
         public IEnumerable<T> LevelOrder() {
             if (Head == null) yield break;
 
-            var queue = new Queue<Node<T>>();
+            var queue = new Queue<NodeBST<T>>();
             queue.Enqueue(Head);
 
             while (queue.Count > 0) {
@@ -194,7 +194,7 @@ namespace DataStructures_CSharp.Trees {
             return InOrder(Head).GetEnumerator();
         }
 
-        public bool IsBalanced(Node<T> node) {
+        public bool IsBalanced(NodeBST<T> node) {
             if (node == null) return true;
 
             int left = HeightTree(node.Left);
@@ -233,7 +233,7 @@ namespace DataStructures_CSharp.Trees {
             return Head == null;
         }
 
-        public Node<T> Find(T value) {
+        public NodeBST<T> Find(T value) {
             return Find(Head, value);
         }
 

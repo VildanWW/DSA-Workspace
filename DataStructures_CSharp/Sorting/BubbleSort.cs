@@ -28,7 +28,7 @@ namespace DataStructures_CSharp.Sorting {
             int sizeContainer = container.Count;
 
             for(int i=0;i<sizeContainer;i++) {
-                Node<T> current = container.Head;
+                NodeSLL<T> current = container.Head;
                 bool flag = true;
                 while (current.Next != null) {
                     if(func(current.Value, current.Next.Value)) {

@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DataStructures_CSharp.Lists {
-    public class Node<T> {
+    public class NodeDLL<T> {
         public T Value { get; set; }
-        public Node<T>? Next { get; set; }
+        public NodeDLL<T>? Next { get; set; }
+        public NodeDLL<T>? Prev { get; set; }
 
-        public Node(T value) {
+        public NodeDLL(T value) {
             Value = value;
         }
     }
