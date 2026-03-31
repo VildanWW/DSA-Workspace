@@ -105,7 +105,12 @@ namespace DataStructures_CSharp.Lists {
                     Head.Prev = node;
                     Head = node;
                 }                
-            } else {
+            }
+            else if(index == Count) {
+                Add(item); 
+                return;
+            }
+            else {
                 NodeDLL<T> node = new NodeDLL<T>(item);
                 NodeDLL<T>? cur = (Count / 2 > index) ? Head : Tail;
 
@@ -190,6 +195,89 @@ namespace DataStructures_CSharp.Lists {
             Head.Prev = null;
 
             Count--;
+        }
+
+        public void CopyTo(T[] array, int arrayIndex) {
+            if (array == null) throw new ArgumentNullException(nameof(array));
+            if (arrayIndex < 0) throw new IndexOutOfRangeException("Index outside of array");
+            if(array.Length-arrayIndex<Count) throw new ArgumentException("Deficiency space");
+
+            foreach (T item in this) {
+                array[arrayIndex++] = item;
+            }
+        }
+
+        public T this[int index] {
+            get {
+                return FindElement(index);
+            }
+
+            set {
+                if(index<0 || index>=Count) throw new ArgumentOutOfRangeException();
+
+                NodeDLL<T>? current = (index < Count / 2) ? Head : Tail;
+
+                if (index < Count / 2) {
+                    for(int i=0;i<index;i++) {
+                        current = current.Next;
+                    }
+                } else {
+                    for(int i=Count-1;i>index;i--) {
+                        current = current.Prev;
+                    }
+                }
+
+                current.Value = value;
+            }
+        }
+
+        public void RemoveAt(int index) {
+            if (Count == 0) throw new Exception("Count = 0");
+            if (index < 0 || index >= Count) throw new IndexOutOfRangeException("index not good");
+
+            if (index == 0) {
+                RemoveFirst();
+                return;
+            }
+
+            else if(index==Count-1) {
+                RemoveLast();
+                return;
+            }
+
+            NodeDLL<T> cur = (Count / 2 > index) ? Head : Tail;
+
+            if (index < Count / 2) {
+                for(int i=0;i<index;i++) {
+                    cur = cur.Next;
+                }
+
+                cur.Prev.Next = cur.Next;
+                cur.Next.Prev = cur.Prev;
+            } else {
+                for (int i = Count - 1; i > index; i--) {
+                    cur = cur.Prev;
+                }
+
+                cur.Prev.Next = cur.Next;
+                cur.Next.Prev = cur.Prev;
+            }
+
+            Count--;
+        }
+
+        public bool Remove(T item) {
+            if (Count == 0) throw new Exception("Count = 0");
+
+            int index = 0;
+            foreach (var cur in this) {
+                if (item.Equals(cur)) {
+                    RemoveAt(index);
+                    return true;
+                }
+                index++;
+            }
+            return false;
         }
     }
 }
