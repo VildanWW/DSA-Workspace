@@ -8,18 +8,13 @@ using System.Linq;
 namespace DataStructures_CSharp {
     class Program {
         static void Main(string[] args) {
-            DoublyLinkedList<int> list = new DoublyLinkedList<int>();
+            AVL_Tree<int> aVL_Tree = new AVL_Tree<int>();
 
-            list.Add(34);
-            list.Insert(0, 23);
-            list.Insert(1, 24);
-            list.Add(29);
+            aVL_Tree.Add(5);
+            aVL_Tree.Add(2);
+            aVL_Tree.Add(1);
 
-            list.ShowList();
-
-            foreach (int i in list) {
-                Console.WriteLine(i);
-            }
+            aVL_Tree.ShowTree();
         }
     }
 }
