@@ -280,11 +280,15 @@ namespace DataStructures_CSharp.Trees {
             return child;
         }
         
-        public int GetHeight(NodeRBT<T> node) {
+        private int GetHeight(NodeRBT<T> node) {
             if (node == null) return 0;
             return 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
         }
-       
+        
+        public int GetHeight() {
+            return GetHeight(Head);
+        }
+
         private void BalanceAfterDelete(NodeRBT<T> node, NodeRBT<T> parent) {
             while (node != Head && (node == null || node.Color == NodeColor.Black)) {
                 if (parent == null) break;
