@@ -8,13 +8,14 @@ using System.Linq;
 namespace DataStructures_CSharp {
     class Program {
         static void Main(string[] args) {
-            AVL_Tree<int> aVL_Tree = new AVL_Tree<int>();
+            RBT_Tree<int> aVL_Tree = new RBT_Tree<int>();
 
-            aVL_Tree.Add(5);
-            aVL_Tree.Add(2);
-            aVL_Tree.Add(1);
+            aVL_Tree.Add(11123);
+            aVL_Tree.Add(244);
 
-            aVL_Tree.ShowTree();
+            foreach (int i in aVL_Tree) {
+                Console.WriteLine(i);
+            }
         }
     }
 }
