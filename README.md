@@ -148,7 +148,7 @@
 
 <img width="997" height="297" alt="image" src="https://github.com/user-attachments/assets/ac99f035-678d-4263-8310-41b7825dc928" />
 
-# 🫧 Сортировка пузырьком (Bubble Sort, O(n²))
+# 🫧 Сортировка пузырьком (O(n), O(n²), O(n²))
 
 ### Описание работы пузырьковой сортировки:
 
