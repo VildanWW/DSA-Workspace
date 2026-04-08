@@ -10,10 +10,10 @@ namespace DataStructures_CSharp {
         static void Main(string[] args) {
             RBT_Tree<int> aVL_Tree = new RBT_Tree<int>();
 
-            aVL_Tree.Add(11123);
-            aVL_Tree.Add(244);
+            int[] n = { 2, 6, 1, 6, 3 };
+            Sorting.QuickSort.Sort(n, (x, y) => x < y);
 
-            foreach (int i in aVL_Tree) {
+            foreach (int i in n) {
                 Console.WriteLine(i);
             }
         }
