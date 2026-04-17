@@ -15,6 +15,10 @@ namespace DataStructures_CSharp {
             keyValuePairs.Add(8, 11);
             keyValuePairs.Add(9, 12);
             keyValuePairs.Add(8, 111112);
+            keyValuePairs.Add(18, 111112);
+            keyValuePairs.Add(38, 111112);
+            keyValuePairs.Add(338, 111112);
+            keyValuePairs.Add(385, 111112);
 
             keyValuePairs.ShowTable();
         }

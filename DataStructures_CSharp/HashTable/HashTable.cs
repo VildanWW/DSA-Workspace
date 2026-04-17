@@ -1,8 +1,7 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 
 namespace DataStructures_CSharp.HashTable {
-    public class HashTable<KeyType, ValueType> : IEnumerable<KeyValuePair<KeyType, ValueType>>  {
+    public class HashTable<KeyType, ValueType> : ICollection<KeyValuePair<KeyType, ValueType>>, IEnumerable<KeyValuePair<KeyType, ValueType>>  {
         private const int DefaultCapacity = 16;
         private const double DefaultLoadFactor = 0.75;
 
@@ -12,7 +11,10 @@ namespace DataStructures_CSharp.HashTable {
         private int _countInsert;
 
         public int HashSize => _hashSize;
-        public int CountInsert => _countInsert;
+
+        public int Count => _countInsert;
+
+        public bool IsReadOnly => false;
 
         public HashTable() {
             _hashSize = DefaultCapacity;
@@ -32,7 +34,7 @@ namespace DataStructures_CSharp.HashTable {
             _hashMassive = new Node<KeyType, ValueType>[hashSize];
         }
 
-        public bool TryUpdate(KeyType key, ValueType value) {
+        private bool TryUpdate(KeyType key, ValueType value) {
             int index = _hashFunction(key, _hashSize);
             var current = _hashMassive[index];
 
@@ -47,7 +49,7 @@ namespace DataStructures_CSharp.HashTable {
             return false;
         }
 
-        public void ReHash() {
+        private void ReHash() {
 
             int newCapacity = _hashSize * 2;
             var newBuckets = new Node<KeyType, ValueType>[newCapacity];
@@ -125,26 +127,27 @@ namespace DataStructures_CSharp.HashTable {
             return GetEnumerator();
         }
 
-        public void Remove(KeyType key) {
+        public bool Remove(KeyType key) {
             int index = _hashFunction(key, _hashSize);
             var current = _hashMassive[index];
 
-            if (current == null) return;
+            if (current == null) return false;
 
             if (EqualityComparer<KeyType>.Default.Equals(current.Key, key)) {
                 _hashMassive[index] = current.Next;
                 _countInsert--;
-                return;
+                return true;
             }
 
             while (current.Next != null) {
                 if (EqualityComparer<KeyType>.Default.Equals(current.Next.Key, key)) {
                     current.Next = current.Next.Next;
                     _countInsert--;
-                    return;
+                    return true;
                 }
                 current = current.Next;
             }
+            return false;
         }
 
         public void ShowTable() {
@@ -165,6 +168,54 @@ namespace DataStructures_CSharp.HashTable {
                 _hashMassive[i] = null;
             }
             _countInsert = 0;
+        }
+
+        public void Add(KeyValuePair<KeyType, ValueType> item) {
+            Add(item.Key, item.Value);
+        }
+
+        public bool TryGetValue(KeyType key, out ValueType value) {
+            int index = _hashFunction(key, _hashSize);
+            var current = _hashMassive[index];
+
+            while (current != null) {
+                if (EqualityComparer<KeyType>.Default.Equals(key, current.Key)) {
+                    value = current.Value;
+                    return true;
+                }
+                current = current.Next;
+            }
+            value = default;
+            return false;
+        }
+
+        public bool Contains(KeyValuePair<KeyType, ValueType> item) {
+            if (TryGetValue(item.Key, out var value)) {
+                return EqualityComparer<ValueType>.Default.Equals(value, item.Value);
+            }
+            return false;
+        }
+
+        public void CopyTo(KeyValuePair<KeyType, ValueType>[] array, int arrayIndex) {
+            if (array == null) throw new ArgumentNullException(nameof(array));
+            if (arrayIndex < 0 || arrayIndex >= array.Length) throw new ArgumentOutOfRangeException(nameof(arrayIndex));
+            if (array.Length - arrayIndex < _countInsert) throw new ArgumentException("Little spaces");
+            
+            foreach(var pair in this) {
+                array[arrayIndex++] = pair;
+            }
+        }
+
+        public bool Remove(KeyValuePair<KeyType, ValueType> item) {
+            if (Contains(item)) {
+                return Remove(item.Key);
+            }
+            return false;
+        }
+
+        public ValueType this[KeyType key] {
+            get => TryGetValue(key, out var value) ? value : throw new KeyNotFoundException("Not found key");
+            set => Add(key, value);
         }
     }
 }
