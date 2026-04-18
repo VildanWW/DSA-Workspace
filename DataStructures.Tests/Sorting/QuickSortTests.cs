@@ -4,7 +4,7 @@ using System.Linq;
 using DataStructures_CSharp.Sorting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataStructures.Tests;
+namespace DataStructures.Tests.Sorting;
 
 [TestClass]
 public class QuickSortTests {

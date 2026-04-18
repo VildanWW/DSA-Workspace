@@ -1,4 +1,4 @@
-namespace DataStructures.Tests;
+namespace DataStructures.Tests.Sorting;
 using DataStructures_CSharp.Sorting;
 
 [TestClass]

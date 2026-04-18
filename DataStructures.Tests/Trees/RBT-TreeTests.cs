@@ -4,7 +4,7 @@ using System.Linq;
 using DataStructures_CSharp.Trees;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DataStructures.Tests;
+namespace DataStructures.Tests.Trees;
 
 [TestClass]
 public class RBT_TreeTests {
@@ -283,8 +283,8 @@ public class RBT_TreeTests {
         if (leftHeight != rightHeight) return false;
 
         if (node.Color == NodeColor.Red) {
-            if ((node.Left != null && node.Left.Color == NodeColor.Red) ||
-                (node.Right != null && node.Right.Color == NodeColor.Red)) {
+            if (node.Left != null && node.Left.Color == NodeColor.Red ||
+                node.Right != null && node.Right.Color == NodeColor.Red) {
                 return false;
             }
         }

@@ -1,6 +1,6 @@
 using DataStructures_CSharp.HashTable;
 
-namespace DataStructures.Tests;
+namespace DataStructures.Tests.HashTables;
 
 [TestClass]
 public class HashTableTests {

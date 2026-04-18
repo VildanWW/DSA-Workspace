@@ -1,4 +1,4 @@
-namespace DataStructures.Tests;
+namespace DataStructures.Tests.Trees;
 using DataStructures_CSharp.Trees;
 [TestClass]
 public class BinarySearchTreeTests {

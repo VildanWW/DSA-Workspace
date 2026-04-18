@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
 
-namespace DataStructures.Tests;
+namespace DataStructures.Tests.Trees;
 
 [TestClass]
 public class AVL_TreeTests {

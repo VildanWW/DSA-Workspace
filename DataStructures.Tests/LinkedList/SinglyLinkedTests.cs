@@ -1,5 +1,5 @@
 ﻿using DataStructures_CSharp.Lists;
-namespace DataStructures.Tests {
+namespace DataStructures.Tests.LinkedList {
     [TestClass]
     public sealed class SinglyLinkedTests {
         [TestMethod]

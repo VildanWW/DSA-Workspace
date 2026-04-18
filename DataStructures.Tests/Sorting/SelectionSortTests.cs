@@ -1,6 +1,6 @@
 using DataStructures_CSharp.Sorting;
 
-namespace DataStructures.Tests;
+namespace DataStructures.Tests.Sorting;
 
 [TestClass]
 public class SelectionSortTests {

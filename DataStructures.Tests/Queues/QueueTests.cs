@@ -1,3 +1,4 @@
+using DataStructures_CSharp.Queues;
 
 namespace DataStructures_CSharp.Queues.Tests {
     [TestClass]

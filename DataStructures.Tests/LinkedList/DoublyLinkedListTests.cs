@@ -1,6 +1,6 @@
 ﻿using DataStructures_CSharp.Lists;
 
-namespace DataStructures.Tests;
+namespace DataStructures.Tests.LinkedList;
 
 [TestClass]
 public class DoublyLinkedListTests {
